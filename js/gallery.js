@@ -1,10 +1,10 @@
-import gallary from "./gallery-items.js";
-const gallaryInDOM = document.querySelector("ul.js-gallery");
+import gallery from "./gallery-items.js";
+const galleryInDOM = document.querySelector("ul.js-gallery");
 const modal = document.querySelector(".js-lightbox");
 let indexCurrenElement;
-const renderGallary = function (array, ul) {
+const renderGallery = function (array, ul) {
   /* генерирует разметку галлереи картинок */
-  let NodeList = gallary.map((value, index) => {
+  let NodeList = gallery.map((value, index) => {
     let item = document.createElement("li");
     item.classList.add("gallery__item");
     let link = document.createElement("a");
@@ -22,7 +22,7 @@ const renderGallary = function (array, ul) {
     return item;
   });
 
-  gallaryInDOM.append(...NodeList);
+  galleryInDOM.append(...NodeList);
 };
 
 const getItemfromDOMGallery = function (e) {
@@ -66,24 +66,24 @@ const checkButton = function (e) {
   if (e.code === "Escape") {
     modalIsClose();
   } else if (e.code === "ArrowRight") {
-    moveInGallary("right");
+    moveInGallery("right");
   } else if (e.code === "ArrowLeft") {
-    moveInGallary("left");
+    moveInGallery("left");
   } else {
     return;
   }
 };
 
-const moveInGallary = function (indexToMove) {
+const moveInGallery = function (indexToMove) {
   if (indexToMove === "right") {
     indexCurrenElement += 1;
-    if (indexCurrenElement > gallary.length - 1) {
+    if (indexCurrenElement > gallery.length - 1) {
       indexCurrenElement = 0;
     }
   } else if (indexToMove === "left") {
     indexCurrenElement -= 1;
     if (indexCurrenElement < 0) {
-      indexCurrenElement = gallary.length - 1;
+      indexCurrenElement = gallery.length - 1;
     }
   }
   changeImg(
@@ -92,8 +92,8 @@ const moveInGallary = function (indexToMove) {
   );
 };
 
-renderGallary(gallary, gallaryInDOM);
-gallaryInDOM.addEventListener("click", getItemfromDOMGallery);
+renderGallery(gallery, galleryInDOM);
+galleryInDOM.addEventListener("click", getItemfromDOMGallery);
 document
   .querySelector('button[data-action="close-lightbox"]')
   .addEventListener("click", modalIsClose);
